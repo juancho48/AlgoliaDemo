@@ -39,5 +39,23 @@ return new class extends OneTimeOperation
         $index->saveObjects($products, [
             'autoGenerateObjectIDIfNotExist' => true,
         ]);
+
+        $index->setSettings([
+
+            // Select the attributes you want to search in
+            'searchableAttributes' => [
+                'brand', 'name', 'categories', 'description',
+            ],
+        
+            // Define business metrics for ranking and sorting
+            'customRanking' => [
+                'desc(popularity)',
+            ],
+            
+            // Set up some attributes to filter results on
+            'attributesForFaceting' => [
+                'categories', 'searchable(brand)', 'price',
+            ],
+        ]);
     }
 };
